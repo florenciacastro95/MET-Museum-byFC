@@ -1,0 +1,21 @@
+{
+  "name": "met-museum",
+  "version": "0.0.1",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Florencia M. Castro",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.0",
+    "node-fetch": "^3.3.2",
+    "node-google-translate-skidz": "^1.1.2",
+    "nodemon": "^3.1.4",
+    "pug": "^3.0.3",
+    "serve-favicon": "^2.5.0"
+  }
+}

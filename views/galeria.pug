@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  section#nav-container
+    form
+      label(for="text-bClave") Clave:
+      input#bClave(type="text", name="bClave")
+
+      label(for="text-bLocalizacion") Localización:
+      input#bLocalizacion(type="text", name="bLocalizacion")
+
+      label(for="bDepartamento") Departamento:
+      select#select-bDepartamento(name="bDepartamento")
+        option(value="") Ver todos los departamentos
+        each departamento in departamentos
+          option(value=departamento.departmentId)= departamento.displayName
+
+      button#button-Buscar(type="submit") Buscar
+
+  #loading.loading(aria-live="polite") Cargando...
+  section#cards-container
+
+block scripts
+  script(type="module", src="/js/main.js")
