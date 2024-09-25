@@ -33,7 +33,7 @@ async function traducirDepartamentos(departamentos, lang) {
     return departamentosTraducidos;
   } catch (error) {
     console.error('Error al traducir los departamentos:', error);
-    return departamentos; 
+    return departamentos;
   }
 }
 
@@ -44,12 +44,12 @@ enrutador.get('/', (req, res) => {
 
 enrutador.get('/galeria', async (req, res) => {
   const lang = req.query.lang || 'en';
-
+  const startTime = Date.now();
   try {
     const departamentos = await cargarDepartamentos();
 
-    const departamentosTraducidos = lang !== 'es' ? 
-      await traducirDepartamentos(departamentos, lang) : 
+    const departamentosTraducidos = lang !== 'es' ?
+      await traducirDepartamentos(departamentos, lang) :
       departamentos;
 
     res.render('galeria', { title: 'Galería', departamentos: departamentosTraducidos });
@@ -57,6 +57,11 @@ enrutador.get('/galeria', async (req, res) => {
     console.error('Error al cargar la página de galería:', error);
     res.status(500).send('Error al cargar la página');
   }
+
+  const endTime = Date.now(); // Marca el tiempo al final
+  const executionTime = endTime - startTime; // Calcula el tiempo total en milisegundos
+  console.log(`Tiempo de ejecución para /galeria: ${executionTime} ms`);
+
 });
 
 
@@ -64,14 +69,14 @@ enrutador.get('/buscar', async (req, res) => {
   const { clave, localizacion, departamento, pagina = 1 } = req.query;
   try {
     const resultado = await conseguirObras(clave, localizacion, departamento, parseInt(pagina));
-    
+
     res.render('partials/obras', { obras: resultado.obras }, (err, html) => {
       if (err) {
         console.error('Error al renderizar obras:', err);
         res.status(500).json({ error: 'Error al renderizar obras' });
       } else {
-        res.json({ 
-          tarjetasHTML: html, 
+        res.json({
+          tarjetasHTML: html,
           totalPaginas: resultado.totalPaginas,
           paginaActual: parseInt(pagina),
           total: resultado.total
@@ -84,7 +89,7 @@ enrutador.get('/buscar', async (req, res) => {
   }
 });
 
-enrutador.get('/obra/:id/imagenes', mostrarImagenesAdicionales); 
+enrutador.get('/obra/:id/imagenes', mostrarImagenesAdicionales);
 
 
 export default enrutador;
