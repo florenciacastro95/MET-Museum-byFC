@@ -141,31 +141,33 @@ select:focus {
 }
 
 .image-container {
-  position: relative; /* Necesario para que la superposición sea relativa a este contenedor */
+  position: relative; 
 }
 
 .date-overlay {
-  display: none;  /* Oculto por defecto */
+
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(143, 0, 0, 0.5);  /* Fondo semitransparente */
+  background-color: rgba(143, 0, 0, 0.5); 
   color: white;
   justify-content: center;
   align-items: center;
   display: flex;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .image-container:hover .date-overlay {
-  display: flex;  }
+  opacity: 1; }
 
 
 .additional-images-btn {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border: none;
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   font-size: 0.9rem;
@@ -175,7 +177,8 @@ select:focus {
 }
 
 .additional-images-btn:hover {
-  background-color: #a03c36;
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .pagination {
@@ -276,7 +279,8 @@ select:focus {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  max-width: 100%;
+  max-width: 60%;
+  height: 400px;
   margin-top: 2rem auto;
 }
 
@@ -305,7 +309,7 @@ select:focus {
 button.carousel-prev, button.carousel-next {
   background-color: var(--color-white);
   color: var(--color-primary);
-  border: none;
+  border: 2px solid var(--color-primary);
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   border-radius: 4px;
@@ -322,14 +326,15 @@ button.carousel-prev:hover, button.carousel-next:hover {
   display: inline-block;
   background-color: var(--color-white);
   color: var(--color-primary);
-  border: none;
+  border: 2px solid var(--color-primary);
   padding: 0.5rem 1rem;
-  margin-top: 1rem auto;
+  margin-top: 4rem auto;
   font-size: 0.9rem;
   border-radius: 4px;
   cursor: pointer;
   transition: var(--transition);
   text-align: center;
+  text-decoration: none;
 }
 
 .back-link:hover {

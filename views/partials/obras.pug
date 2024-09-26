@@ -10,21 +10,5 @@ each obra in obras
       p= obra.culture || 'Cultura desconocida'
       if obra.additionalImages && obra.additionalImages.length > 0
         button.additional-images-btn(data-id=obra.objectID) Ver imágenes adicionales
-<!--
-each obra in obras
-  if obra
-    .artwork-card
-      .image-container(style="position: relative;")
-        img(src=obra.primaryImageSmall || 'https://upload.wikimedia.org/wikipedia/commons/5/5e/No_image_available_-_museum.svg', alt=obra.title || 'Sin título')
-        .date-overlay
-          p= obra.objectDate || 'Fecha desconocida'
-      .card-content
-        h2= obra.title || 'Título desconocido'
-        p= obra.artistDisplayName || 'Artista desconocido'
-        p= obra.culture || 'Cultura desconocida'
-        if obra.additionalImages && obra.additionalImages.length > 0
-          button.additional-images-btn(data-id=obra.objectID) Ver imágenes adicionales
-
-
 
 
