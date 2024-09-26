@@ -29,10 +29,12 @@ block styles
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      text-decoration: none;
       transition: background-color 0.3s ease;
     }
     .cta-button:hover {
-      background-color: #a03c36;
+      background-color: white;
+      color: var(--color-primary);
     }
 
 block content
@@ -41,7 +43,7 @@ block content
     .content-section-index
       h2 Explora la Colección del MET
       p Descubre miles de obras de arte de todo el mundo y de todas las épocas.
-      a.cta-button(href="/galeria") Ver Galería
+      a.cta-button(href="/galeria") Ver galería
 
 block scripts
   script(type="module", src="/js/main.js")
