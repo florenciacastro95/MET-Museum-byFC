@@ -58,8 +58,8 @@ enrutador.get('/galeria', async (req, res) => {
     res.status(500).send('Error al cargar la página');
   }
 
-  const endTime = Date.now(); // Marca el tiempo al final
-  const executionTime = endTime - startTime; // Calcula el tiempo total en milisegundos
+  const endTime = Date.now(); 
+  const executionTime = endTime - startTime; 
   console.log(`Tiempo de ejecución para /galeria: ${executionTime} ms`);
 
 });

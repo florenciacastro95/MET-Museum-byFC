@@ -96,10 +96,54 @@ function crearBotonesPaginacion(paginaActual, totalPaginas) {
   cardsContainer.after(contenedorPaginacion);
 }
 
+
+function iniciarCarrusel() {
+  let indice = 0;
+  const imagenes = document.querySelectorAll('.carousel-images img');
+  const totalImagenes = imagenes.length;
+  console.log('Total de imagenes:', totalImagenes);
+
+  if (totalImagenes === 0) {
+    console.log('No hay imágenes en el carrusel');
+    return;
+  }
+
+  const nextButton = document.querySelector('.carousel-next');
+  const prevButton = document.querySelector('.carousel-prev');
+
+  if (!nextButton || !prevButton) {
+    console.log('No se crearon botones para el carrusel');
+    return;
+  }
+
+  nextButton.addEventListener('click', () => {
+    imagenes[indice].classList.remove('active');
+    indice = (indice + 1) % totalImagenes;
+    imagenes[indice].classList.add('active');
+  });
+
+  prevButton.addEventListener('click', () => {
+    imagenes[indice].classList.remove('active');
+    indice = (indice - 1 + totalImagenes) % totalImagenes;
+    imagenes[indice].classList.add('active');
+  });
+
+  
+  if (!document.querySelector('.carousel-images img.active')) {
+    imagenes[0].classList.add('active');
+  }
+}
+
 document.addEventListener('click', function(e) {
   if (e.target && e.target.classList.contains('additional-images-btn')) {
     const obraId = e.target.getAttribute('data-id');
-    window.location.href = `/obra/${obraId}/imagenes`;
+    fetch(`/obra/${obraId}/imagenes`)
+      .then(response => response.text())
+      .then(html => {
+        document.body.innerHTML = html;
+        iniciarCarrusel();
+      })
+      .catch(error => console.error('Error:', error));
   }
 });
 
@@ -120,25 +164,8 @@ botonBuscar.addEventListener('click', (evento) => {
   cargarObras(paginaActual);
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM cargado, iniciando carga de obras");
   cargarObras(paginaActual);
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  let currentImageIndex = 0;
-  const images = document.querySelectorAll('.carousel-images img');
-  const totalImages = images.length;
-  console.log(totalImages);
-  document.querySelector('.carousel-next').addEventListener('click', () => {
-    images[currentImageIndex].classList.remove('active');
-    currentImageIndex = (currentImageIndex + 1) % totalImages;
-    images[currentImageIndex].classList.add('active');
-  });
-
-  document.querySelector('.carousel-prev').addEventListener('click', () => {
-    images[currentImageIndex].classList.remove('active');
-    currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
-    images[currentImageIndex].classList.add('active');
-  });
+  iniciarCarrusel();
 });
