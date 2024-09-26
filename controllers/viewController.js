@@ -61,7 +61,7 @@ async function traducirTexto(texto, idiomaOrigen = 'en', idiomaDestino = 'es') {
 async function traducirObra(obra) {
   try {
     const [tituloTraducido, artistaTraducido, culturaTraducida, dinastiaTraducida] = await Promise.all([
-      traducirTexto(obra.title),
+      traducirTexto(obra.title, "auto"),
       traducirTexto(obra.artistDisplayName),
       traducirTexto(obra.culture),
       traducirTexto(obra.dynasty)
