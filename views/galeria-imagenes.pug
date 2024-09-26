@@ -1,16 +1,13 @@
+
 extends layout
 
 block content
-  .gallery-additional-images
-    h1= obra.title
-    .carousel-container
-      .carousel-images
-        each imagen, index in obra.additionalImages
-          img(src=imagen, alt=`Imagen adicional de ${obra.title}`, class=index === 0 ? 'active' : '')
-      .carousel-controls
-          button.carousel-prev Anterior
-          button.carousel-next Siguiente
-    a.back-link(href="/galeria") Volver a la galería
-    
-block scripts
-  script(type="module", src="/js/main.js")
+  h1= obra.title
+  .carousel-container
+    button.carousel-prev Anterior
+    .carousel-images
+      each imagen, index in obra.additionalImages
+        img(src=imagen, alt=`Imagen adicional de ${obra.title}`, class=index === 0 ? 'active' : '')
+    button.carousel-next Siguiente
+
+  a.back-link(href="javascript:history.back()") Volver a la galería
