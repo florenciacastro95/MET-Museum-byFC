@@ -7,10 +7,16 @@ const loadingElement = document.getElementById("loading");
 
 let paginaActual = 1;
 let totalPaginas = 1;
+let ultimaBusqueda = null;
+
+
 async function cargarObras(pagina = 1) {
   const clave = textClave.value.trim();
   const localizacion = textLoca.value.trim();
   let valorSeleccionado = selectDep.value;
+
+  ultimaBusqueda = { clave, localizacion, valorSeleccionado, pagina };
+  sessionStorage.setItem('ultimaBusqueda', JSON.stringify(ultimaBusqueda));
 
   mostrarCargando();
 
@@ -142,6 +148,13 @@ document.addEventListener('click', function(e) {
       .then(html => {
         document.body.innerHTML = html;
         iniciarCarrusel();
+        const backLink = document.querySelector('.back-link');
+        if(backLink){
+          backLink.addEventListener('click', function(event){
+            event.preventDefault();
+            window.location.href='/galeria';
+          })
+        }
       })
       .catch(error => console.error('Error:', error));
   }
@@ -166,6 +179,15 @@ botonBuscar.addEventListener('click', (evento) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM cargado, iniciando carga de obras");
-  cargarObras(paginaActual);
+  const busquedaGuardada = sessionStorage.getItem('ultimaBusqueda');
+  if (busquedaGuardada) {
+    const { clave, localizacion, valorSeleccionado, pagina } = JSON.parse(busquedaGuardada);
+    textClave.value = clave;
+    textLoca.value = localizacion;
+    selectDep.value = valorSeleccionado;
+    cargarObras(pagina);
+  } else {
+    cargarObras(paginaActual);
+  }
   iniciarCarrusel();
 });

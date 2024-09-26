@@ -52,7 +52,7 @@ enrutador.get('/galeria', async (req, res) => {
       await traducirDepartamentos(departamentos, lang) :
       departamentos;
 
-    res.render('galeria', { title: 'Galería', departamentos: departamentosTraducidos });
+    res.render('galeria', { title: 'Galería', departamentos: departamentosTraducidos, obras:[] });
   } catch (error) {
     console.error('Error al cargar la página de galería:', error);
     res.status(500).send('Error al cargar la página');
