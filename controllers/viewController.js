@@ -60,19 +60,27 @@ async function traducirTexto(texto, idiomaOrigen = 'en', idiomaDestino = 'es') {
 
 async function traducirObra(obra) {
   try {
-    const [tituloTraducido, artistaTraducido, culturaTraducida, dinastiaTraducida] = await Promise.all([
+
+    let objectDate = obra.objectDate;
+    if (objectDate && objectDate.startsWith("ca.")) {
+      objectDate = "Apróximadamente en " + objectDate.slice(3).trim();
+    }
+    const [tituloTraducido, artistaTraducido, culturaTraducida, dinastiaTraducida, fechaTraducida] = await Promise.all([
       traducirTexto(obra.title, "auto"),
       traducirTexto(obra.artistDisplayName),
       traducirTexto(obra.culture),
-      traducirTexto(obra.dynasty)
+      traducirTexto(obra.dynasty),
+      traducirTexto(objectDate)
     ]);
-
+    
+  
     return {
       ...obra,
       title: tituloTraducido || "No hay título disponible",
       artistDisplayName: artistaTraducido || "No hay artista disponible",
       culture: culturaTraducida || "No hay cultura disponible",
-      dynasty: dinastiaTraducida || "No hay dinastía disponible"
+      dynasty: dinastiaTraducida || "No hay dinastía disponible",
+      objectDate: fechaTraducida || "No hay fecha disponible"
     };
   } catch (error) {
     console.error('Error al traducir obra:', error);
